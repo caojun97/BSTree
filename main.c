@@ -162,8 +162,8 @@ static Node* bstree_predecessor(Node *node)
 		return bstree_node_maximum_find(node->left);
 	}
 	// 若该结点没有左孩子。则该结点有两种可能：
-	// 01) 该结点是一个左孩子，则该结点的前驱结点就是它的父结点
-	// 02) 该结点是一个右孩子，则查找该结点的最低父结点，且该父结点有用右孩子，满足条件的最第父结点就是结点node的前驱结点
+	// 01) 该结点是一个左孩子，则查找该结点的最低父结点，且该父结点拥有右孩子，满足条件的最低父结点就是结点的前驱结点
+	// 02) 该结点是一个右孩子，则该结点的前驱结点就是它的父结点
 	Node *p = node->parent;
 	while (p != NULL && node == p->left)
 	{
@@ -172,7 +172,6 @@ static Node* bstree_predecessor(Node *node)
 	}
 	return p;
 }
-
 
 /* 删除结点 */
 static Node* bstree_node_delete(BSTree tree, Node *node)
@@ -196,11 +195,11 @@ static Node* bstree_node_delete(BSTree tree, Node *node)
 		p = q->right;
 	}
 
-
 	if (p != NULL)
 	{
 		p->parent = q->parent;
 	}
+
 	if (q->parent == NULL)
 	{
 		tree = p;
@@ -213,6 +212,7 @@ static Node* bstree_node_delete(BSTree tree, Node *node)
 	{
 		q->parent->right = p;
 	}
+
 	if (q != node)
 	{
 		node->key = q->key;
